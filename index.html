@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pay to Pal Niranjan</title>
+  <title>Secure Payment</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
   <style>
@@ -41,13 +41,13 @@
     let name = document.getElementById('name').value;
     if(!amount || amount < 1) { alert('Amount de bhai'); return null; }
     if(!name) { alert('Naam ta likhe de'); return null; }
-    return `upi://pay?pa=palniranjan4@ybl&pn=Pal Niranjan&am=${amount}&cu=INR&tn=Payment from ${name}`;
+    return `upi://pay?pa=niranjanp117@oksbi&pn=Niranjan%20Pal&am=${amount}&cu=INR&tn=Payment from ${name}`;
   }
 
   function payNow() {
     let upiLink = getUPILink();
     if(upiLink) {
-      let intentUrl = `intent://pay?pa=palniranjan4@ybl&pn=Pal Niranjan&am=${document.getElementById('amount').value}&cu=INR#Intent;scheme=upi;package=com.phonepe.app;end`;
+      let intentUrl = `intent://pay?pa=niranjanp117@oksbi&pn=Niranjan%20Pal&am=${document.getElementById('amount').value}&cu=INR#Intent;scheme=upi;package=com.phonepe.app;end`;
       window.location.href = intentUrl;
       setTimeout(() => { window.location.href = upiLink; }, 2000);
     }
