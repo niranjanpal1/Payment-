@@ -6,8 +6,11 @@
   <title>Login - Niranjanpal Social</title>
   <style>
     body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-   .login-box { background: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    #googleBtn { background: #db4437; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; }
+   .login-box { background: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 300px; }
+    #googleBtn { background: #db4437; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; }
+    #googleBtn:disabled { background: #ccc; }
+    #error { color: red; margin-top: 15px; font-size: 14px; min-height: 20px; }
+    #loading { color: blue; margin-top: 10px; display: none; }
   </style>
 </head>
 <body>
@@ -15,18 +18,20 @@
     <h2>Niranjanpal Social</h2>
     <p>Google diye login koro</p>
     <button id="googleBtn">Google diye Login</button>
+    <p id="loading">Login hocche...</p>
+    <p id="error"></p>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyByujwHczgYY6QzQdrKDgisixTzkAMP-pg",
-      authDomain: "iranjanpal-social.firebaseapp.com",
-      databaseURL: "https://iranjanpal-social-default-rtdb.firebaseio.com",
-      projectId: "iranjanpal-social",
-      storageBucket: "iranjanpal-social.firebasestorage.app",
+      authDomain: "lranjanpal-social.firebaseapp.com",
+      databaseURL: "https://lranjanpal-social-default-rtdb.firebaseio.com",
+      projectId: "lranjanpal-social",
+      storageBucket: "lranjanpal-social.firebasestorage.app",
       messagingSenderId: "620301811783",
       appId: "1:620301811783:web:55c024199f99dddccd3162"
     };
@@ -35,14 +40,38 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    document.getElementById('googleBtn').addEventListener('click', () => {
-      signInWithPopup(auth, provider)
-       .then(() => {
-          window.location.href = 'home.html'; // Login hole home a patha
-        })
-       .catch((error) => {
-          alert("Login failed: " + error.message);
-        });
+    const btn = document.getElementById('googleBtn');
+    const errorText = document.getElementById('error');
+    const loadingText = document.getElementById('loading');
+
+    getRedirectResult(auth).then((result) => {
+      if (result) {
+        window.location.href = 'home.html';
+      }
+    }).catch((error) => {
+      errorText.innerText = "Error: " + error.code;
+    });
+
+    btn.addEventListener('click', () => {
+      btn.disabled = true;
+      loadingText.style.display = 'block';
+      errorText.innerText = '';
+
+      const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        signInWithRedirect(auth, provider);
+      } else {
+        signInWithPopup(auth, provider)
+          .then(() => {
+            window.location.href = 'home.html';
+          })
+          .catch((error) => {
+            errorText.innerText = "Error: " + error.code;
+            btn.disabled = false;
+            loadingText.style.display = 'none';
+          });
+      }
     });
   </script>
 </body>
