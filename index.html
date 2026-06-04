@@ -10,7 +10,7 @@
     input { width: 100%; padding: 14px; margin: 10px 0; background: #334155; border: 1px solid #475569; color: white; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
     button { width: 100%; padding: 16px; background: #5f259f; border: none; color: white; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 12px; }
     .upi-btn { background: #00baf2; }
-    h2 { text-align: center; margin: 0 0 10px 0; }
+    h2 { text-align: center; margin: 0 0 15px 0; }
     .note { font-size: 13px; opacity: 0.8; text-align: center; margin-top: 20px; line-height: 1.5; }
     #qrcode { background: white; padding: 15px; border-radius: 8px; margin: 15px auto; width: fit-content; display: none; }
   </style>
@@ -18,7 +18,7 @@
 <body>
 
 <div class="card">
-  <h2>💰 Pay to Pal Niranjan</h2>
+  <h2>💰 Secure Payment</h2>
   <input type="text" id="name" placeholder="Tor Naam" required>
   <input type="number" id="amount" placeholder="Amount ₹" value="999" required>
   <input type="text" id="item" placeholder="Kiser Jonno? Ex: Service Fee" required>
@@ -30,7 +30,7 @@
   <button onclick="sendWhatsApp()">Payment Korechi - WhatsApp a Janao</button>
   
   <p class="note">
-    UPI ID: palniranjan4@ybl<br>
+    100% Secure UPI Payment<br>
     Button kaj na korle QR scan koro
   </p>
 </div>
@@ -70,8 +70,8 @@
     let amount = document.getElementById('amount').value;
     let item = document.getElementById('item').value;
     if(!name || !amount) { alert('Naam ar Amount de agey'); return; }
-    let phoneNumber = "7363872892"; // << EKHANE TOR NUMBER DE 91 SOho
-    let message = `Payment Done ✅%0AName: ${name}%0AAmount: ₹${amount}%0AFor: ${item}%0AUPI ID: palniranjan4@ybl%0APlease confirm.`;
+    let phoneNumber = "91XXXXXXXXXX"; // << EKHANE TOR WHATSAPP NUMBER DE 91 SOho
+    let message = `Payment Done ✅%0AName: ${name}%0AAmount: ₹${amount}%0AFor: ${item}%0APlease confirm.`;
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   }
 </script>
